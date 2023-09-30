@@ -1,0 +1,511 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-module-flags: -target x86_64-apple-ios11.2-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name MuviPlayer
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import AVKit
+import CoreMedia
+import Foundation
+import MediaPlayer
+@_exported import MuviPlayer
+import ObjectiveC
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+public enum MuviPlayerPlaybackError {
+  case unknown
+  case notFound
+  case unauthorized
+  case authenticationError
+  case forbidden
+  case unavailable
+  case mediaFileError
+  case bandwidthExceeded
+  case playlistUnchanged
+  case decoderMalfunction
+  case decoderTemporarilyUnavailable
+  case wrongHostIP
+  case wrongHostDNS
+  case badURL
+  case invalidRequest
+  public static func == (a: MuviPlayer.MuviPlayerPlaybackError, b: MuviPlayer.MuviPlayerPlaybackError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class MSPopOverMenuConfiguration : ObjectiveC.NSObject {
+  public var menuRowHeight: CoreFoundation.CGFloat
+  public var menuWidth: CoreFoundation.CGFloat
+  public var borderColor: UIKit.UIColor
+  public var borderWidth: CoreFoundation.CGFloat
+  public var backgoundTintColor: UIKit.UIColor
+  public var cornerRadius: CoreFoundation.CGFloat
+  public var menuSeparatorColor: UIKit.UIColor
+  public var menuSeparatorInset: UIKit.UIEdgeInsets
+  public var cellSelectionStyle: UIKit.UITableViewCell.SelectionStyle
+  public var globalShadow: Swift.Bool
+  public var shadowAlpha: CoreFoundation.CGFloat
+  public var localShadow: Swift.Bool
+  public var textColor: UIKit.UIColor
+  public var textFont: UIKit.UIFont
+  public var textAlignment: UIKit.NSTextAlignment
+  public var ignoreImageOriginalColor: Swift.Bool
+  public var menuIconSize: CoreFoundation.CGFloat
+  public var selectedTextColor: UIKit.UIColor
+  public var selectedCellBackgroundColor: UIKit.UIColor
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class MuviVideoPlayer : AVFoundation.AVPlayer, AVFoundation.AVAssetResourceLoaderDelegate {
+  weak public var handler: MuviPlayer.MuviPlayerView!
+  public var isBuffering: Swift.Bool
+  @objc deinit
+  @objc override dynamic open func play()
+  open func replay(seekTime: CoreMedia.CMTime, playerState: MuviPlayer.MuviPlayerState)
+  @objc override dynamic open func pause()
+  @objc override dynamic open func replaceCurrentItem(with item: AVFoundation.AVPlayerItem?)
+  @objc override dynamic public init(url URL: Foundation.URL)
+  @objc override dynamic public init(playerItem item: AVFoundation.AVPlayerItem?)
+  @objc override dynamic public init()
+}
+extension MuviPlayer.MuviVideoPlayer {
+  open func startTime() -> CoreMedia.CMTime
+  open func endTime() -> CoreMedia.CMTime
+  open func preparePlayerPlaybackDelegate()
+  @objc override dynamic open func observeValue(forKeyPath keyPath: Swift.String?, of object: Any?, change: [Foundation.NSKeyValueChangeKey : Any]?, context: Swift.UnsafeMutableRawPointer?)
+  @objc dynamic public func resourceLoader(_ resourceLoader: AVFoundation.AVAssetResourceLoader, shouldWaitForRenewalOfRequestedResource renewalRequest: AVFoundation.AVAssetResourceRenewalRequest) -> Swift.Bool
+  @objc dynamic public func resourceLoader(_ resourceLoader: AVFoundation.AVAssetResourceLoader, shouldWaitForLoadingOfRequestedResource loadingRequest: AVFoundation.AVAssetResourceLoadingRequest) -> Swift.Bool
+}
+extension MuviPlayer.MSPopOverMenu {
+  public static func showForSender(sender: UIKit.UIView, with menuArray: [MuviPlayer.MSMenuObject], menuImageArray: [MuviPlayer.Imageable]? = nil, popOverPosition: MuviPlayer.MSPopOverPosition = .automatic, config: MuviPlayer.MSPopOverMenuConfiguration? = nil, done: @escaping (ObjectiveC.NSInteger) -> Swift.Void, cancel: (() -> Swift.Void)? = nil)
+  public static func showForEvent(event: UIKit.UIEvent, with menuArray: [MuviPlayer.MSMenuObject], menuImageArray: [MuviPlayer.Imageable]? = nil, popOverPosition: MuviPlayer.MSPopOverPosition = .automatic, config: MuviPlayer.MSPopOverMenuConfiguration? = nil, done: @escaping (ObjectiveC.NSInteger) -> Swift.Void, cancel: (() -> Swift.Void)? = nil)
+  public static func showFromSenderFrame(senderFrame: CoreFoundation.CGRect, with menuArray: [MuviPlayer.MSMenuObject], menuImageArray: [MuviPlayer.Imageable]? = nil, popOverPosition: MuviPlayer.MSPopOverPosition = .automatic, config: MuviPlayer.MSPopOverMenuConfiguration? = nil, done: @escaping (ObjectiveC.NSInteger) -> Swift.Void, cancel: (() -> Swift.Void)? = nil)
+}
+public enum MSPopOverPosition {
+  case automatic
+  case alwaysAboveSender
+  case alwaysUnderSender
+  public static func == (a: MuviPlayer.MSPopOverPosition, b: MuviPlayer.MSPopOverPosition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers public class MSPopOverMenu : ObjectiveC.NSObject {
+  public func showForSender(sender: UIKit.UIView?, or senderFrame: CoreFoundation.CGRect?, with menuNameArray: [MuviPlayer.MSMenuObject]!, menuImageArray: [MuviPlayer.Imageable]? = nil, popOverPosition: MuviPlayer.MSPopOverPosition = .automatic, config: MuviPlayer.MSPopOverMenuConfiguration? = nil, done: @escaping (ObjectiveC.NSInteger) -> Swift.Void, cancel: (() -> Swift.Void)? = nil)
+  public func dismiss()
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension MuviPlayer.MSPopOverMenu : UIKit.UIGestureRecognizerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func gestureRecognizer(_ gestureRecognizer: UIKit.UIGestureRecognizer, shouldReceive touch: UIKit.UITouch) -> Swift.Bool
+}
+public protocol Imageable {
+  func getImage() -> UIKit.UIImage?
+}
+extension Swift.String : MuviPlayer.Imageable {
+  public func getImage() -> UIKit.UIImage?
+}
+extension UIKit.UIImage : MuviPlayer.Imageable {
+  public func getImage() -> UIKit.UIImage?
+}
+public protocol MSMenuObject {
+}
+extension Swift.String : MuviPlayer.MSMenuObject {
+}
+extension MuviPlayer.MSPopOverMenuModel : MuviPlayer.MSMenuObject {
+}
+extension UIKit.UIScreen {
+  @_Concurrency.MainActor(unsafe) public static func pop_width() -> CoreFoundation.CGFloat
+  @_Concurrency.MainActor(unsafe) public static func pop_height() -> CoreFoundation.CGFloat
+}
+extension MuviPlayer.MuviPlayerView {
+  @_Concurrency.MainActor(unsafe) open func set(logo: UIKit.UIImage, postion: MuviPlayer.MuviPlayerLogoPosition = .topLeft, alpha: CoreFoundation.CGFloat = 0.5, isfullscreen: Swift.Bool = false, logoWidth: Swift.Int = 35)
+}
+public enum MuviPlayerLogoPosition {
+  case topLeft, topRight
+  case bottomLeft, bottomRight
+  public static func == (a: MuviPlayer.MuviPlayerLogoPosition, b: MuviPlayer.MuviPlayerLogoPosition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) public class MuviTimeLabel : UIKit.UILabel {
+  @_Concurrency.MainActor(unsafe) open func update(toTime: Foundation.TimeInterval)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public struct MuviPlayerMediaTrack {
+  public var option: AVFoundation.AVMediaSelectionOption
+  public var group: AVFoundation.AVMediaSelectionGroup
+  public var name: Swift.String
+  public var language: Swift.String
+  public var isSelected: Swift.Bool
+  public func select(for player: MuviPlayer.MuviVideoPlayer)
+}
+public protocol MuviPlayerPlaybackDelegate : AnyObject {
+  func togglePlayback(shouldPlay: Swift.Bool)
+  func timeDidChange(player: MuviPlayer.MuviVideoPlayer, to time: CoreMedia.CMTime)
+  func playbackShouldBegin(player: MuviPlayer.MuviVideoPlayer) -> Swift.Bool
+  func playbackDidJump(player: MuviPlayer.MuviVideoPlayer)
+  func playbackWillBegin(player: MuviPlayer.MuviVideoPlayer)
+  func playbackReady(player: MuviPlayer.MuviVideoPlayer)
+  func playbackDidBegin(player: MuviPlayer.MuviVideoPlayer, seekTime: CoreMedia.CMTime)
+  func playbackDidBegin(player: MuviPlayer.MuviVideoPlayer)
+  func playbackDidEnd(player: MuviPlayer.MuviVideoPlayer, notification: Foundation.Notification)
+  func startBuffering(player: MuviPlayer.MuviVideoPlayer)
+  func endBuffering(player: MuviPlayer.MuviVideoPlayer)
+  func playbackDidFailed(with error: MuviPlayer.MuviPlayerPlaybackError)
+  func playbackWillPause(player: MuviPlayer.MuviVideoPlayer)
+  func playbackDidPause(player: MuviPlayer.MuviVideoPlayer)
+  func playbackItemReady(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func backButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func subtitleButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func resolutionButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func nextButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func previousButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func fullscreenButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func fullscreenPIPAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func seekingDidStart(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func seekingDidEnd(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func multiAudioButton(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  func muviplayerAuthentication(code: Swift.Int, message: Swift.String)
+  func pollingCardButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+}
+extension MuviPlayer.MuviPlayerPlaybackDelegate {
+  public func togglePlayback(shouldPlay: Swift.Bool)
+  public func timeDidChange(player: MuviPlayer.MuviVideoPlayer, to time: CoreMedia.CMTime)
+  public func playbackShouldBegin(player: MuviPlayer.MuviVideoPlayer) -> Swift.Bool
+  public func playbackDidJump(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackWillBegin(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackReady(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackDidBegin(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackDidEnd(player: MuviPlayer.MuviVideoPlayer, notification: Foundation.Notification)
+  public func startBuffering(player: MuviPlayer.MuviVideoPlayer)
+  public func endBuffering(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackDidFailed(with error: MuviPlayer.MuviPlayerPlaybackError)
+  public func playbackWillPause(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackDidPause(player: MuviPlayer.MuviVideoPlayer)
+  public func playbackItemReady(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func subtitleButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func resolutionButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func nextButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func previousButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func playbackDidBegin(player: MuviPlayer.MuviVideoPlayer, seekTime: CoreMedia.CMTime)
+  public func fullscreenButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func fullscreenPIPAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func seekingDidStart(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func seekingDidEnd(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func multiAudioButton(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+  public func muviplayerAuthentication(code: Swift.Int, message: Swift.String)
+  public func pollingCardButtonAction(player: MuviPlayer.MuviVideoPlayer, item: MuviPlayer.MuviPlayerItem?)
+}
+@objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) open class MuviPlayerControls : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) weak public var handler: MuviPlayer.MuviPlayerView!
+  @_Concurrency.MainActor(unsafe) public var behaviour: MuviPlayer.MuviPlayerControlsBehaviour!
+  @_Concurrency.MainActor(unsafe) public var airplayButton: AVKit.AVRoutePickerView?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var resolutionButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var subtitleButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var multipleAudioButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var pollingCardButton: UIKit.UIButton!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var backButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var playPauseButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var fullscreenButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var fullscreenButtonPIP: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var pipButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var airplayContainer: UIKit.UIView?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var rewindButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var forwardButton: MuviPlayer.MuviStatefulButton?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var seekbarSlider: UIKit.UISlider?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var liveStreamingLabel: UIKit.UILabel?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var currentTimeLabel: MuviPlayer.MuviTimeLabel?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var totalTimeLabel: MuviPlayer.MuviTimeLabel?
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var playBackSpeedButton: UIKit.UIButton!
+  @objc @IBOutlet @_Concurrency.MainActor(unsafe) weak public var liveImageView: UIKit.UIImageView!
+  @_Concurrency.MainActor(unsafe) public var hasVideoFrame: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var sliderThumbTintColor: UIKit.UIColor {
+    get
+    set
+  }
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func touchesBegan(_ touches: Swift.Set<UIKit.UITouch>, with event: UIKit.UIEvent?)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func didMoveToSuperview()
+  @_Concurrency.MainActor(unsafe) public func layoutInSuperview()
+  @_Concurrency.MainActor(unsafe) open func timeDidChange(toTime time: CoreMedia.CMTime)
+  @_Concurrency.MainActor(unsafe) public func setSeekbarSlider(start startValue: Swift.Double, end endValue: Swift.Double, at time: Swift.Double)
+  @_Concurrency.MainActor(unsafe) open func removeFromPlayer()
+  @_Concurrency.MainActor(unsafe) open func prepare(isPIP: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) open func prepareNotificationListener()
+  @_Concurrency.MainActor(unsafe) open func prepareSeekbar()
+  @_Concurrency.MainActor(unsafe) open func showBuffering()
+  @_Concurrency.MainActor(unsafe) open func hideBuffering()
+  @_Concurrency.MainActor(unsafe) open func setTitle(value: Swift.String, isHidde: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+}
+@objc @_inheritsConvenienceInitializers public class MSPopOverMenuModel : ObjectiveC.NSObject {
+  public var title: Swift.String
+  public var image: MuviPlayer.Imageable?
+  public var selected: Swift.Bool
+  convenience public init(title: Swift.String, image: MuviPlayer.Imageable?, selected: Swift.Bool)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers @IBDesignable @_Concurrency.MainActor(unsafe) open class MuviStatefulButton : UIKit.UIButton {
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var activeImage: UIKit.UIImage?
+  @objc @IBInspectable @_Concurrency.MainActor(unsafe) public var inactiveImage: UIKit.UIImage? {
+    @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor(unsafe) open func set(active: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers open class MuviPlayerItem : AVFoundation.AVPlayerItem {
+  public var isEncrypted: Swift.Bool
+  public var licenseURL: Swift.String
+  public var audioTracks: [MuviPlayer.MuviPlayerMediaTrack] {
+    get
+  }
+  @objc deinit
+  open func setMediaTrack(track: MuviPlayer.MuviPlayerMediaTrack)
+  @available(iOS 7.0, *)
+  @objc override dynamic public init(asset: AVFoundation.AVAsset, automaticallyLoadedAssetKeys: [Swift.String]?)
+}
+extension MuviPlayer.MuviPlayerView {
+  @_Concurrency.MainActor(unsafe) open func setWatermark(watermarkData: MuviPlayer.MuviWaterMark)
+}
+open class MuviWaterMark {
+  open var watermarkText: Swift.String
+  open var watermarkPostion: MuviPlayer.MuviWaterMarkPosition
+  open var watermarkTextColor: UIKit.UIColor
+  open var watermarkBackgroundColor: UIKit.UIColor
+  open var watermarkFont: UIKit.UIFont
+  open var watermarkPositionChangeDuration: Swift.Double
+  open var watermarkVisibilityDuration: Swift.Double
+  public init(text: Swift.String, postion: MuviPlayer.MuviWaterMarkPosition)
+  @objc deinit
+}
+public enum MuviWaterMarkPosition {
+  case dynamic
+  case topLeft, topMiddle, topRight
+  case middleLeft, middleMiddle, middleRight
+  case bottomLeft, bottomMiddle, bottomRight
+  public static func == (a: MuviPlayer.MuviWaterMarkPosition, b: MuviPlayer.MuviWaterMarkPosition) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers open class MuviPlayerSDK {
+  public static var authorizationToken: Swift.String
+  public static func setAuthorisation(appID: Swift.String, appSecret: Swift.String)
+  public static func setAuthorisation(playerLicense: Swift.String)
+  @objc deinit
+}
+public enum MuviPlayerError : Swift.Error {
+  case authenticationFailure(code: Swift.Int, message: Swift.String)
+}
+public enum MuviPlayerState {
+  case play, pause
+  public static func == (a: MuviPlayer.MuviPlayerState, b: MuviPlayer.MuviPlayerState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class MuviPlayerView : UIKit.UIView, AVKit.AVPictureInPictureControllerDelegate {
+  @_Concurrency.MainActor(unsafe) public var waterMarkLabel: UIKit.UILabel
+  @_Concurrency.MainActor(unsafe) public var waterMarkVisibleTimer: Foundation.Timer!
+  @_Concurrency.MainActor(unsafe) public var waterMarkHideTimer: Foundation.Timer!
+  @_Concurrency.MainActor(unsafe) public var bufferingLoader: UIKit.UIActivityIndicatorView
+  @_Concurrency.MainActor(unsafe) public var usepanGestureDirection: MuviPlayer.MuviPlayerViewPanGestureDirection {
+    get
+    set
+  }
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) public var extensions: [Swift.String : MuviPlayer.MuviPlayerExtension]
+  @_Concurrency.MainActor(unsafe) public var player: MuviPlayer.MuviVideoPlayer!
+  @_Concurrency.MainActor(unsafe) public var muviSubtitleData: [MuviPlayer.MuviSubtitleData]
+  @_Concurrency.MainActor(unsafe) public var controls: MuviPlayer.MuviPlayerControls?
+  @_Concurrency.MainActor(unsafe) public var useMuviPlayerControls: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var useMuviPIPPlayerControls: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var renderingView: MuviPlayer.MuviPlayerRenderingView!
+  @_Concurrency.MainActor(unsafe) weak public var playbackDelegate: MuviPlayer.MuviPlayerPlaybackDelegate?
+  @_Concurrency.MainActor(unsafe) public var parentView: UIKit.UIView?
+  @_Concurrency.MainActor(unsafe) public var pipController: AVKit.AVPictureInPictureController?
+  @_Concurrency.MainActor(unsafe) public var ready: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var autoplay: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var isPlaying: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var isSeeking: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var isFullscreenModeEnabled: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var isPipModeEnabled: Swift.Bool
+  @_Concurrency.MainActor(unsafe) public var playBackSpeedValueArray: [Swift.Float]
+  @_Concurrency.MainActor(unsafe) public var defaultPlayBackSpeed: Swift.Float {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) open func resetPlayBackSpeed()
+  @_Concurrency.MainActor(unsafe) public var enablePlaybackSpeed: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var updateLastPlaybackSpeed: Swift.Float {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var isForwarding: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var isRewinding: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) public var subtitleShadowColor: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var subtitleFontColor: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var subtitleFont: (UIKit.UIFont) {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var subtitleBackgroundColor: UIKit.UIColor {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var skipIntroStartTime: Swift.Double
+  @_Concurrency.MainActor(unsafe) public var skipIntroEndTime: Swift.Double
+  @_Concurrency.MainActor(unsafe) public var isSkipIntroEnabled: Swift.Bool {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) public var skipIntroTitle: Swift.String {
+    get
+    set
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) public func use(controls: MuviPlayer.MuviPlayerControls)
+  @_Concurrency.MainActor(unsafe) public func didForwardBackward(with seekDuration: Swift.Double)
+  @_Concurrency.MainActor(unsafe) public func updateControls(toTime time: CoreMedia.CMTime)
+  @_Concurrency.MainActor(unsafe) open func addExtension(extension ext: MuviPlayer.MuviPlayerExtension, with name: Swift.String)
+  @_Concurrency.MainActor(unsafe) open func getExtension(with name: Swift.String) -> MuviPlayer.MuviPlayerExtension?
+  @_Concurrency.MainActor(unsafe) open func prepare()
+  @_Concurrency.MainActor(unsafe) open func startBuffering()
+  @_Concurrency.MainActor(unsafe) open func stopBuffering()
+  @_Concurrency.MainActor(unsafe) open func layout(view: UIKit.UIView, into: UIKit.UIView? = nil)
+  @_Concurrency.MainActor(unsafe) open func generateVideoFrames(from spriteImageUrl: Swift.String, with interval: Foundation.TimeInterval, rowCount: Swift.Int, columnCount: Swift.Int)
+  @_Concurrency.MainActor(unsafe) open func setNativePip(enabled: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func setFullscreen(enabled: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) open func replacePlayer(item: MuviPlayer.MuviPlayerItem?, playerState: MuviPlayer.MuviPlayerState = .play, time: CoreMedia.CMTime?, resolutionChanged: Swift.Bool = false)
+  @_Concurrency.MainActor(unsafe) open func set(item: MuviPlayer.MuviPlayerItem?, seekTime: CoreMedia.CMTime = CMTime.zero, playerState: MuviPlayer.MuviPlayerState = .play)
+  @objc @IBAction @_Concurrency.MainActor(unsafe) open func play(sender: Any? = nil)
+  @_Concurrency.MainActor(unsafe) open func replay(sender: Any? = nil, seekTime: CoreMedia.CMTime, playerState: MuviPlayer.MuviPlayerState)
+  @objc @IBAction @_Concurrency.MainActor(unsafe) open func pause(sender: Any? = nil)
+  @objc @IBAction @_Concurrency.MainActor(unsafe) open func togglePlayback(sender: Any? = nil)
+  @_Concurrency.MainActor(unsafe) @objc public func pictureInPictureControllerDidStopPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @_Concurrency.MainActor(unsafe) @objc public func pictureInPictureControllerDidStartPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @_Concurrency.MainActor(unsafe) @objc public func pictureInPictureControllerWillStopPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @_Concurrency.MainActor(unsafe) @objc public func pictureInPictureControllerWillStartPictureInPicture(_ pictureInPictureController: AVKit.AVPictureInPictureController)
+  @_Concurrency.MainActor(unsafe) @objc public func pictureInPictureController(_ pictureInPictureController: AVKit.AVPictureInPictureController, failedToStartPictureInPictureWithError error: Swift.Error)
+  @_Concurrency.MainActor(unsafe) @objc public func pictureInPictureController(_ pictureInPictureController: AVKit.AVPictureInPictureController, restoreUserInterfaceForPictureInPictureStopWithCompletionHandler completionHandler: @escaping (Swift.Bool) -> Swift.Void)
+}
+@objc open class MuviPlayerExtension : ObjectiveC.NSObject {
+  open var player: MuviPlayer.MuviPlayerView
+  public init(with player: MuviPlayer.MuviPlayerView)
+  open func didAddExtension()
+  open func prepare()
+  @objc deinit
+}
+open class MuviPlayerControlsBehaviour {
+  weak public var controls: MuviPlayer.MuviPlayerControls!
+  public var showingControls: Swift.Bool
+  public var shouldHideControls: Swift.Bool
+  public var shouldShowControls: Swift.Bool
+  public var elapsedTime: Swift.Double
+  public var activationTime: Swift.Double
+  public var deactivationTimeInterval: Swift.Double
+  public var deactivationBlock: ((MuviPlayer.MuviPlayerControls) -> Swift.Void)?
+  public var activationBlock: ((MuviPlayer.MuviPlayerControls) -> Swift.Void)?
+  @objc deinit
+  public init(with controls: MuviPlayer.MuviPlayerControls)
+  open func update(with time: Foundation.TimeInterval)
+  open func defaultActivationBlock()
+  open func defaultDeactivationBlock()
+  open func hide()
+  open func show()
+}
+@objc @_Concurrency.MainActor(unsafe) open class MuviPlayerRenderingView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open class var layerClass: Swift.AnyClass {
+    @objc get
+  }
+  @_Concurrency.MainActor(unsafe) public var playerLayer: AVFoundation.AVPlayerLayer {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) weak public var player: MuviPlayer.MuviPlayerView!
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) public init(with player: MuviPlayer.MuviPlayerView)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+}
+@objc public class MuviSubtitles : ObjectiveC.NSObject {
+  public init(file filePath: Foundation.URL, encoding: Swift.String.Encoding = String.Encoding.utf8)
+  @objc public init(subtitles string: Swift.String)
+  @objc public func searchSubtitles(at time: Foundation.TimeInterval) -> Swift.String?
+  @objc deinit
+}
+extension MuviPlayer.MuviPlayerView {
+  @_Concurrency.MainActor(unsafe) public var subtitleLabel: UIKit.UILabel? {
+    get
+    set(value)
+  }
+  @_Concurrency.MainActor(unsafe) public func setSubtitle(muvisubtitleData: [MuviPlayer.MuviSubtitleData])
+  @_Concurrency.MainActor(unsafe) public func addSubtitles(fileFromRemote filePath: Foundation.URL, encoding: Swift.String.Encoding = String.Encoding.utf8)
+  @_Concurrency.MainActor(unsafe) public func addSubtitles(fileFromLocal filePath: Foundation.URL, encoding: Swift.String.Encoding = String.Encoding.utf8)
+  @_Concurrency.MainActor(unsafe) public func removeSubtitles()
+}
+public class MuviSubtitleData {
+  public var languageCode: Swift.String?
+  public var subtitleUrl: Swift.String?
+  public var languageType: Swift.String?
+  public var subtitleName: Swift.String?
+  public init(languageCode: Swift.String, subtitleUrl: Swift.String, languageType: Swift.String, subtitleName: Swift.String)
+  @objc deinit
+}
+public enum MuviPlayerViewPanGestureDirection : Swift.Int {
+  case vertical
+  case horizontal
+  case both
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension MuviPlayer.MuviPlayerPlaybackError : Swift.Equatable {}
+extension MuviPlayer.MuviPlayerPlaybackError : Swift.Hashable {}
+extension MuviPlayer.MSPopOverPosition : Swift.Equatable {}
+extension MuviPlayer.MSPopOverPosition : Swift.Hashable {}
+extension MuviPlayer.MuviPlayerLogoPosition : Swift.Equatable {}
+extension MuviPlayer.MuviPlayerLogoPosition : Swift.Hashable {}
+extension MuviPlayer.MuviWaterMarkPosition : Swift.Equatable {}
+extension MuviPlayer.MuviWaterMarkPosition : Swift.Hashable {}
+extension MuviPlayer.MuviPlayerState : Swift.Equatable {}
+extension MuviPlayer.MuviPlayerState : Swift.Hashable {}
+extension MuviPlayer.MuviPlayerViewPanGestureDirection : Swift.Equatable {}
+extension MuviPlayer.MuviPlayerViewPanGestureDirection : Swift.Hashable {}
+extension MuviPlayer.MuviPlayerViewPanGestureDirection : Swift.RawRepresentable {}
