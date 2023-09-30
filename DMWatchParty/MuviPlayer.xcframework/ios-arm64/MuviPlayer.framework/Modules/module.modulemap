@@ -1,0 +1,11 @@
+framework module MuviPlayer {
+  umbrella header "MuviPlayer.h"
+
+  export *
+  module * { export * }
+}
+
+module MuviPlayer.Swift {
+  header "MuviPlayer-Swift.h"
+  requires objc
+}
